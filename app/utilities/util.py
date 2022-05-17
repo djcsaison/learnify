@@ -1,9 +1,9 @@
 import json
 import decimal
-import pandas as pd
+import io, os
 from decimal import Decimal
 import time
-
+import configparser
 
 class DecimalEncoder(json.JSONEncoder):
     def default(self, o):
@@ -64,3 +64,13 @@ def prepare_failure_response(app_form_id, status_code, error_message, body=None)
             'responseBody': {}
         }
     }
+
+def read_config_file(section, attribute):
+
+    config = configparser.ConfigParser(allow_no_value=True)
+    config.read("config.ini")
+    return config.get(section, attribute)
+    
+
+ree  = read_config_file('dynamodb','tablename')
+print(ree)
